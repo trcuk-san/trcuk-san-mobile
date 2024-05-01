@@ -1,10 +1,9 @@
-import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
+import {Text, TouchableOpacity, View, Image} from 'react-native';
 import React, {useState} from 'react';
 import {TextInput} from 'react-native-paper';
 import {Eye, EyeSlash} from 'phosphor-react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
-// import smallTruckImage from '../assets/small-truck.png';
+import styles from '../styles/loginStyle';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -74,50 +73,3 @@ const theme = {
     primary: '#6D7DD3',
   },
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  centerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: -50,
-  },
-  logoText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 40,
-  },
-  formContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    padding: 20,
-    width: '80%',
-    alignItems: 'center',
-  },
-  input: {
-    width: '100%',
-  },
-  btnSignIn: {
-    backgroundColor: '#2D82D6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 48,
-    width: '100%',
-    borderRadius: 8,
-    elevation: 2,
-    marginTop: 15,
-  },
-  textSignIn: {
-    fontSize: 16,
-    color: '#FFFFFF',
-  },
-  error: {
-    color: '#D75D5D',
-    fontSize: 12,
-    paddingLeft: 10,
-  },
-});
