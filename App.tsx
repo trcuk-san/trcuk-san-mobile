@@ -4,12 +4,13 @@ import RootStack from './stacks/RootStack';
 import Home from './screens/Home';
 import Login from './screens/Login';
 import Profile from './screens/Profile';
+import Detail from './screens/Detail';
 
 const App = () => {
   return (
     <NavigationContainer>
-      {/* <RootStack /> */}
-      <Home />
+      <RootStack />
+      {/* <Detail /> */}
     </NavigationContainer>
   );
 };
