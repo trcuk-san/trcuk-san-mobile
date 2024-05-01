@@ -32,7 +32,7 @@ const BottomTabStack = () => {
   const Stack = createBottomTabNavigator<BottomTabParamList>();
   return (
     <>
-      {/* <StatusBar barStyle="light-content" /> */}
+      <StatusBar barStyle="light-content" />
       <Stack.Navigator
         initialRouteName="HomeStack"
         screenOptions={{
