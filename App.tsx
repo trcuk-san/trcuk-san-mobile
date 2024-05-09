@@ -5,12 +5,14 @@ import Home from './screens/Home';
 import Login from './screens/Login';
 import Profile from './screens/Profile';
 import Detail from './screens/Detail';
+import AddFee from './screens/AddFee';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <RootStack />
-      {/* <Detail /> */}
+      {/* <RootStack /> */}
+      <Detail />
+      {/* <AddFee /> */}
     </NavigationContainer>
   );
 };
