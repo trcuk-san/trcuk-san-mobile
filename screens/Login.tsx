@@ -7,6 +7,9 @@ import styles from '../styles/loginStyle';
 import {login} from '../services/auth';
 import AuthContext from '../context/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackList} from '../stacks/RootStack';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,30 +18,35 @@ const Login = () => {
   const [errorsEmail, setErrorsEmail] = useState('');
   const [errorsPassword, setErrorsPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const navigetAffterlogin =
+    useNavigation<NativeStackNavigationProp<RootStackList>>();
 
   const handleLogin = async () => {
+    console.log(email, password);
     try {
+      console.log('login working');
       const res: any = await login({
         email: email,
         password: password,
       });
       console.log('res token', res);
-      if (res.message === 'success') {
+      if (res.message === 'Login successful') {
         AsyncStorage.setItem('token', res.token);
         setLoggedIn(true);
         console.log('token kkkkkkkkkk');
-        // navigation.replace('MainStack', {screen: 'Home'});
+        navigetAffterlogin.replace('MainStack', {state: undefined});
       }
     } catch (err: any) {
-      setErrorsEmail('');
-      setErrorsPassword('');
-      err.errors.map((item: any) => {
-        if (item.param === 'email') {
-          setErrorsEmail(item.msg);
-        } else if (item.param === 'password') {
-          setErrorsPassword(item.msg);
-        }
-      });
+      console.log('error:', err);
+      // setErrorsEmail('');
+      // setErrorsPassword('');
+      // err.errors.map((item: any) => {
+      //   if (item.param === 'email') {
+      //     setErrorsEmail(item.msg);
+      //   } else if (item.param === 'password') {
+      //     setErrorsPassword(item.msg);
+      //   }
+      // });
     }
   };
 
