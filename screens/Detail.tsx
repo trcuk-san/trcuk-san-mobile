@@ -4,6 +4,8 @@ import styles from '../styles/detailStyle';
 import {Truck, Package, HandCoins} from 'phosphor-react-native';
 
 const Detail = () => {
+  const UpdateOrderStatus = () => {};
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Detail</Text>

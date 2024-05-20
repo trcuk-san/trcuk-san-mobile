@@ -1,19 +1,45 @@
 import {Text, TouchableOpacity, View, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {TextInput} from 'react-native-paper';
 import {Eye, EyeSlash} from 'phosphor-react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from '../styles/loginStyle';
+import {login} from '../services/auth';
+import AuthContext from '../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorsUsername, setErrorsUsername] = useState('');
+  const {setLoggedIn} = useContext(AuthContext);
+  const [errorsEmail, setErrorsEmail] = useState('');
   const [errorsPassword, setErrorsPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
-  const hardleLogin = async () => {
-    console.log('Login ok!');
+  const handleLogin = async () => {
+    try {
+      const res: any = await login({
+        email: email,
+        password: password,
+      });
+      console.log('res token', res);
+      if (res.message === 'success') {
+        AsyncStorage.setItem('token', res.token);
+        setLoggedIn(true);
+        console.log('token kkkkkkkkkk');
+        // navigation.replace('MainStack', {screen: 'Home'});
+      }
+    } catch (err: any) {
+      setErrorsEmail('');
+      setErrorsPassword('');
+      err.errors.map((item: any) => {
+        if (item.param === 'email') {
+          setErrorsEmail(item.msg);
+        } else if (item.param === 'password') {
+          setErrorsPassword(item.msg);
+        }
+      });
+    }
   };
 
   return (
@@ -25,13 +51,13 @@ const Login = () => {
         <View style={styles.formContainer}>
           <View style={styles.input}>
             <TextInput
-              label="Username"
-              value={username}
+              label="Email"
+              value={email}
               mode="outlined"
-              onChangeText={text => setUsername(text)}
+              onChangeText={text => setEmail(text)}
               theme={theme}
             />
-            <Text style={styles.error}>{errorsUsername}</Text>
+            <Text style={styles.error}>{errorsEmail}</Text>
           </View>
           <View style={styles.input}>
             <TextInput
@@ -57,7 +83,7 @@ const Login = () => {
             <Text style={styles.error}>{errorsPassword}</Text>
           </View>
 
-          <TouchableOpacity style={styles.btnSignIn} onPress={hardleLogin}>
+          <TouchableOpacity style={styles.btnSignIn} onPress={handleLogin}>
             <Text style={styles.textSignIn}>Log In</Text>
           </TouchableOpacity>
         </View>

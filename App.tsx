@@ -10,9 +10,8 @@ import AddFee from './screens/AddFee';
 const App = () => {
   return (
     <NavigationContainer>
-      {/* <RootStack /> */}
-      <Detail />
-      {/* <AddFee /> */}
+      <RootStack />
+      {/* <Login /> */}
     </NavigationContainer>
   );
 };
