@@ -18,10 +18,3 @@ export const getToken = async () => {
   const token = await AsyncStorage.getItem('token');
   return token;
 };
-
-export const getMytoilet = async (CreateBy: any) => {
-  const res = await axios.get('/toilet/mytoilet', {
-    params: {createBy: CreateBy},
-  });
-  return res;
-};
