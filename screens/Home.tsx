@@ -2,8 +2,10 @@ import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from '../styles/homeStyle';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {getMyTask} from '../services/order';
+import {MyTask} from '../services/order';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {HomeStackParamList} from '../stacks/HomeStack';
+import {BottomTabParamList} from '../stacks/BottomTabStack';
 
 interface IMyOrder {
   _id: string;
@@ -27,18 +29,18 @@ interface IMyOrder {
 const Home = () => {
   const {params} = useRoute<RouteProp<BottomTabParamList, 'HomeStack'>>();
   const navigation =
-    useNavigation<NativeStackNavigationProp<ProfileParamList>>();
+    useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
   const [driver, setdriver] = useState(params.driver);
-  const [myList, setMyList] = useState<IMyOrder[]>([]);
+  const [myTask, setMyTask] = useState<IMyOrder[]>([]);
   const [checkData, setCheckData] = useState('');
   const [modal, setModal] = useState(false);
   const [orderID, setOrderID] = useState('');
   const fetchData = async () => {
     try {
-      const myList: any = await getMyTask(driver);
+      const myTask: any = await MyTask(driver);
       // console.log(comments.data);
-      setMyList(myList.MyOrder);
-      setCheckData(myList.message);
+      setMyTask(myTask.MyOrder);
+      setCheckData(myTask.message);
     } catch (err: any) {
       setCheckData(err.message);
       console.log(err.message);
@@ -55,13 +57,13 @@ const Home = () => {
     return unsubscribe;
   }, [navigation]);
 
-  const RenderMytoilet = (): JSX.Element | null => {
+  const RenderMyTask = (): JSX.Element | null => {
     const navigation =
-      useNavigation<NativeStackNavigationProp<HomeParamList>>();
+      useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     if (checkData === 'success') {
       return (
         <>
-          {myList.map((item: any, index) => {
+          {myTask.map((item: any, index) => {
             const onClick = () => {
               console.log('call api detail toilet', item);
               if (item) {
@@ -119,7 +121,7 @@ const Home = () => {
           <Text>รับ</Text>
           <Text>ส่ง</Text>
         </TouchableOpacity> */}
-        <RenderMytoilet></RenderMytoilet>
+        <RenderMyTask></RenderMyTask>
       </ScrollView>
     </View>
   );

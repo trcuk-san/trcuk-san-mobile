@@ -14,6 +14,7 @@ export type RootStackList = {
 const RootStack = () => {
   const Stack = createNativeStackNavigator<RootStackList>();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const checkTokenInStorage = async () => {
       await AsyncStorage.getItem('token').then(token => {
@@ -28,6 +29,7 @@ const RootStack = () => {
     };
     checkTokenInStorage();
   }, []);
+
   return (
     <AuthContext.Provider
       value={{isLoggedIn: isLoggedIn, setLoggedIn: setIsLoggedIn}}>

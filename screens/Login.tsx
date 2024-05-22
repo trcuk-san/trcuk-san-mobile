@@ -34,7 +34,10 @@ const Login = () => {
         AsyncStorage.setItem('token', res.token);
         setLoggedIn(true);
         console.log('token kkkkkkkkkk');
-        navigetAffterlogin.replace('MainStack', {state: undefined});
+        navigetAffterlogin.replace('MainStack', {
+          screen: 'HomeStack',
+          params: {driver: res.driver}, // Ensure driver is passed here
+        });
       }
     } catch (err: any) {
       console.log('error:', err);

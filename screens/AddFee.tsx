@@ -20,7 +20,7 @@ const AddFee = () => {
       <View style={styles.insideContainer}>
         <View style={styles.input}>
           <TextInput
-            label="ค่าน้ำมัน"
+            label="Oil"
             value={oilFee}
             keyboardType="numeric"
             mode="outlined"
@@ -31,7 +31,7 @@ const AddFee = () => {
         </View>
         <View style={styles.input}>
           <TextInput
-            label="ค่าทางด่วน"
+            label="Tollway"
             value={tollwayFee}
             keyboardType="numeric"
             mode="outlined"
@@ -42,7 +42,7 @@ const AddFee = () => {
         </View>
         <View style={styles.input}>
           <TextInput
-            label="ค่าใช้จ่ายอื่นๆ"
+            label="Other"
             value={otherFee}
             keyboardType="numeric"
             mode="outlined"
@@ -52,7 +52,7 @@ const AddFee = () => {
           <Text style={styles.error}>{errorsOtherFee}</Text>
         </View>
         <TouchableOpacity style={styles.btnSignIn} onPress={summitFee}>
-          <Text style={styles.textSignIn}>ตกลง</Text>
+          <Text style={styles.textSignIn}>Summit</Text>
         </TouchableOpacity>
       </View>
     </View>

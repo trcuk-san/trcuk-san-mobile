@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const getMyTask = async (driver: any) => {
-  const res = await axios.get('/order/getMyTask', {
+export const MyTask = async (driver: any) => {
+  const res = await axios.get('/mobile/MyTask', {
     params: {driver: driver},
   });
   return res;
