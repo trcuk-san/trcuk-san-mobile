@@ -1,11 +1,14 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useContext} from 'react';
 import AuthContext from '../context/AuthContext';
-import {MyTask} from '../services/order';
 import {StyleSheet} from 'react-native';
+import {ProfileStackList} from '.';
+import Detail from '../pages/Detail';
+import Profile from '../pages/Profile';
+
+const Stack = createNativeStackNavigator<ProfileStackList>();
 
 const ProfileStack = () => {
-  const Stack = createNativeStackNavigator<ProfileParamList>();
   const {isLoggedIn} = useContext(AuthContext);
   return (
     <Stack.Navigator
@@ -14,7 +17,8 @@ const ProfileStack = () => {
         headerShown: false,
         // navigationBarHidden: true,
       }}>
-      <Stack.Screen name="MyTask" component={MyTask} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Detail" component={Detail} />
     </Stack.Navigator>
   );
 };

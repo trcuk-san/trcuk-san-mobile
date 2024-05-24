@@ -1,13 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Login from '../screens/Login';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-export type AuthTabParamList = {
-  Login: undefined;
-};
+import Login from '../pages/Login';
+import {AuthStackList} from '.';
+
+const Stack = createNativeStackNavigator<AuthStackList>();
+
 const AuthStack = () => {
-  const Stack = createNativeStackNavigator<AuthTabParamList>();
   return (
     <Stack.Navigator
       initialRouteName="Login"

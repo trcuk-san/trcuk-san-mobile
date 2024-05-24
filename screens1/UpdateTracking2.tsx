@@ -1,10 +1,21 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from '../styles/detailStyle';
 import {Truck, Package, HandCoins} from 'phosphor-react-native';
 
-const Detail = () => {
-  const UpdateOrderStatus = () => {};
+const Update = () => {
+  const handleUpdateOrderStatus = async () => {
+    try {
+      const response = await getOrder(orderId);
+      if (response.status === 200) {
+        console.log('Order status updated successfully:', response.data);
+      } else {
+        console.log('Failed to update order status:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -29,8 +40,13 @@ const Detail = () => {
           <Text>จัดส่งเสร็จแล้ว</Text>
         </View>
       </View>
+      <View>
+        <TouchableOpacity onPress={handleUpdateOrderStatus}>
+          <Text>Update Order Status</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-export default Detail;
+export default Update;

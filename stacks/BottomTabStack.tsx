@@ -16,20 +16,18 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {House, User} from 'phosphor-react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Svg, {Path} from 'react-native-svg';
-import Home from '../screens/Home';
-import Profile from '../screens/Profile';
 import {
   NavigationContainer,
   NavigatorScreenParams,
   useNavigation,
 } from '@react-navigation/native';
-export type BottomTabParamList = {
-  HomeStack: undefined;
-  ProfileStack: undefined;
-};
+import HomeStack from './HomeStack';
+import ProfileStack from './ProfileStack';
+import {BottomTabStackList} from '.';
+
+const Stack = createBottomTabNavigator<BottomTabStackList>();
 
 const BottomTabStack = () => {
-  const Stack = createBottomTabNavigator<BottomTabParamList>();
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -48,7 +46,7 @@ const BottomTabStack = () => {
         }}>
         <Stack.Screen
           name="HomeStack"
-          component={Home}
+          component={HomeStack}
           options={{
             tabBarIcon: ({focused, color, size}) => (
               <House
@@ -61,7 +59,7 @@ const BottomTabStack = () => {
         />
         <Stack.Screen
           name="ProfileStack"
-          component={Profile}
+          component={ProfileStack}
           options={{
             tabBarIcon: ({focused, color, size}) => (
               <User

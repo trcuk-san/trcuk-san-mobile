@@ -2,6 +2,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import styles from '../styles/addFeeStyle';
+import {UpdateOrderFee} from '../services/order';
 
 const AddFee = () => {
   const [oilFee, setOilFee] = useState('');
@@ -13,10 +14,19 @@ const AddFee = () => {
 
   const summitFee = () => {
     console.log('onClick Fee Summit');
+    const UpdateOrderFee: any = await UpdateOrderFee({
+      _id: params._id,
+      oilFee: oilFee,
+      tollwayFee: tollwayFee,
+      otherFee: otherFee,
+    });
+    console.log('updateToilet', UpdateOrderFee);
+    navigation.replace('Home');
   };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ค่าใช้จ่าย</Text>
+      <Text style={styles.title}>Fee</Text>
       <View style={styles.insideContainer}>
         <View style={styles.input}>
           <TextInput

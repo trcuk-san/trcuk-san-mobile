@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigatorScreenParams} from '@react-navigation/native';
-import BottomTabStack, {BottomTabParamList} from './BottomTabStack';
-import AuthStack, {AuthTabParamList} from './AuthStack';
+import AuthStack from './AuthStack';
 import AuthContext from '../context/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export type RootStackList = {
-  AuthStack: NavigatorScreenParams<AuthTabParamList>;
-  MainStack: NavigatorScreenParams<BottomTabParamList>;
-};
+import BottomTabStack from './BottomTabStack';
+import {RootStackList} from '.';
 
 const RootStack = () => {
   const Stack = createNativeStackNavigator<RootStackList>();
@@ -39,7 +34,7 @@ const RootStack = () => {
           headerShown: false,
           statusBarHidden: true,
         }}>
-        <Stack.Screen name="MainStack" component={BottomTabStack} />
+        <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
         <Stack.Screen name="AuthStack" component={AuthStack} />
       </Stack.Navigator>
     </AuthContext.Provider>

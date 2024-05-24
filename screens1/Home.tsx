@@ -67,19 +67,16 @@ const Home = () => {
             const onClick = () => {
               console.log('call api detail toilet', item);
               if (item) {
-                navigation.navigate('DetailToilet', {
+                navigation.navigate('Detail', {
                   _id: item._id,
-                  latitude: item.latitude,
-                  longitude: item.longitude,
-                  title: item.title,
-                  contact: item.contact,
-                  cost: item.cost,
-                  handicap: item.handicap,
-                  free: item.free,
-                  type: item.type,
-                  timeOpen: item.timeOpen,
-                  timeClose: item.timeClose,
-                  toiletpicture: item.toiletpicture,
+                  orderId: item.orderId,
+                  datePickUp: item.datePickUp,
+                  timePickUp: item.timePickUp,
+                  orderStatus: item.orderStatus,
+                  vehicle: item.vehicle,
+                  pick_up: item.pick_up,
+                  consumer: item.consumer,
+                  remark: item.remark,
                 });
               }
             };

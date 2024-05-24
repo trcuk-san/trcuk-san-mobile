@@ -18,3 +18,7 @@ export const getToken = async () => {
   const token = await AsyncStorage.getItem('token');
   return token;
 };
+
+export const getProfile = async () => {
+  return await axios.get('/auth/profile2');
+};
