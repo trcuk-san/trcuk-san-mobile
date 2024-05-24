@@ -47,16 +47,12 @@ const UpdateTracking = () => {
       console.log('Updated Order:', response.data);
 
       if (nextOrderStatus === 'Finished') {
-        console.log('Go Fee');
-        navigation.navigate('BottomTabStack', {
-          screen: 'HomeStack',
+        navigation.navigate('HomeStack', {
+          screen: 'UpdateTrackingStack',
           params: {
-            screen: 'UpdateTrackingStack',
+            screen: 'UpdateFee',
             params: {
-              screen: 'UpdateFee',
-              params: {
-                _id: params._id,
-              },
+              _id: params._id,
             },
           },
         });

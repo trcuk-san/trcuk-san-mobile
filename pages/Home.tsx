@@ -199,13 +199,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {HomeStackList, RootStackList, BottomTabStackList} from '../stacks';
 import {getProfile} from '../services/auth';
 
-export interface IProfile {
-  _id: string;
-  firstname: string;
-  lastname: string;
-  profile_picture: string;
-}
-
 interface IMyOrder {
   _id: string;
   datePickUp: string;
@@ -231,16 +224,8 @@ const Home = () => {
   const navigationBottom =
     useNavigation<NativeStackNavigationProp<BottomTabStackList>>();
 
-  const [profile, setProfile] = useState<IProfile>({
-    _id: '',
-    firstname: '',
-    lastname: '',
-    profile_picture:
-      'http://res.cloudinary.com/di71vwint/image/upload/v1674291349/images/nsopymczagslnr78yyv5.png',
-  });
   const [myTask, setMyTask] = useState<IMyOrder[]>([]);
   const [checkData, setCheckData] = useState('');
-  const [orderID, setOrderID] = useState('');
 
   const getMyTask = async () => {
     const {data} = await getProfile();

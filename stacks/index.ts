@@ -16,7 +16,25 @@ export type BottomTabStackList = {
 
 export type ProfileStackList = {
   Profile: undefined;
-  Detail: undefined;
+  Detail: {
+    _id: string;
+    datePickUp: string;
+    timePickUp: string;
+    dateDropOff: string;
+    timeDropOff: string;
+    vehicle: string;
+    driver: string;
+    pick_up: string;
+    drop_off: string[];
+    consumer: string;
+    income: number;
+    oilFee: number;
+    tollwayFee: number;
+    otherFee: number;
+    remark: string;
+    orderStatus: string;
+    orderId: string;
+  }
 };
 
 export type HomeStackList = {

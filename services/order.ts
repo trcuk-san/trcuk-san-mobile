@@ -14,6 +14,13 @@ export const MyTask = async (driver: any) => {
   return res;
 };
 
+export const MyFinishTask = async (driver: any) => {
+  const res = await axios.get('/mobile/MyFinishTask', {
+    params: {driver: driver},
+  });
+  return res;
+};
+
 export const UpdateOrderFee = async (body: IUpdateOrderFee) => {
     const res = await axios.post('/mobile/updateOrderFee', body);
     console.log('res  updateToilet ', res);
