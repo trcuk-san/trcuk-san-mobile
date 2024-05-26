@@ -34,8 +34,16 @@ const Login = () => {
           state: undefined,
         });
       }
-    } catch (error) {
-      console.log('error:', error);
+    } catch (error: any) {
+      setErrorsEmail('');
+      setErrorsPassword('');
+      error.map((item: any) => {
+        if (item.param === 'email') {
+          setErrorsEmail(item.msg);
+        } else if (item.param === 'password') {
+          setErrorsPassword(item.msg);
+        }
+      });
     }
   };
 
