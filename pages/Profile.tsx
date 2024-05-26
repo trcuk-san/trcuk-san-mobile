@@ -6,12 +6,14 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {BottomTabStackList, RootStackList} from '../stacks';
-import {getProfile} from '../services/auth'; // Adjusted import
+import {getProfile} from '../services/auth';
 import {MyFinishTask} from '../services/order';
+import AuthContext from '../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IProfile {
   _id: string;
@@ -54,6 +56,13 @@ const Profile = () => {
   });
   const [Task, setTask] = useState<IMyOrder[]>([]);
   const [checkData, setCheckData] = useState('');
+  const {isLoggedIn, setLoggedIn} = useContext(AuthContext);
+
+  const logout = async () => {
+    setLoggedIn(false);
+    await AsyncStorage.removeItem('token');
+    navigation.replace('AuthStack');
+  };
 
   const getTask = async () => {
     const {data} = await getProfile();
@@ -122,22 +131,22 @@ const Profile = () => {
                 key={index}
                 style={styles.taskContainer}
                 onPress={onClick}>
-                <Text>orderId {item.orderId}</Text>
-                <Text>consumer {item.consumer}</Text>
-                <Text>
-                  date-time PickUp {item.datePickUp} {item.timePickUp}
+                <Text style={styles.taskText}>Order ID: {item.orderId}</Text>
+                <Text style={styles.taskText}>Consumer: {item.consumer}</Text>
+                <Text style={styles.taskText}>
+                  Date-Time PickUp: {item.datePickUp} {item.timePickUp}
                 </Text>
-                <Text>
-                  date-time DropOff {item.dateDropOff} {item.timeDropOff}
+                <Text style={styles.taskText}>
+                  Date-Time DropOff: {item.dateDropOff} {item.timeDropOff}
                 </Text>
-                <Text>vehicle {item.vehicleID}</Text>
+                <Text style={styles.taskText}>Vehicle: {item.vehicleID}</Text>
               </TouchableOpacity>
             );
           })}
         </>
       );
     } else {
-      return <Text>No data available</Text>;
+      return <Text style={styles.noDataText}>No data available</Text>;
     }
   };
 
@@ -156,6 +165,9 @@ const Profile = () => {
           <Text style={styles.profileSalary}>Salary: ${profile.salary}</Text>
         </View>
       </View>
+      <TouchableOpacity onPress={logout} style={styles.logoutButton}>
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
       <ScrollView showsVerticalScrollIndicator={false}>
         <RenderMyTask />
       </ScrollView>
@@ -169,11 +181,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#EAEEFF', // Light blue background
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#405189', // Dark blue
     marginBottom: 16,
   },
   profileContainer: {
@@ -193,10 +206,23 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#405189', // Dark blue
   },
   profileSalary: {
     fontSize: 18,
-    color: '#555',
+    color: '#7582BF', // Medium blue
+  },
+  logoutButton: {
+    backgroundColor: '#D2A517', // Golden color
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  logoutButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   taskContainer: {
     backgroundColor: '#fff',
@@ -216,5 +242,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
     marginBottom: 5,
+  },
+  noDataText: {
+    fontSize: 16,
+    color: '#7582BF', // Medium blue
+    textAlign: 'center',
+    marginTop: 20,
   },
 });

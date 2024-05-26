@@ -15,6 +15,8 @@ import {
 } from '@react-navigation/native';
 import {BottomTabStackList, UpdateTrackingStackList} from '../stacks';
 import {UpdateOrderStatus} from '../services/order';
+import LaunchNavigator from 'react-native-launch-navigator';
+import {Button} from 'react-native-paper';
 
 const UpdateTracking = () => {
   const {params} =
@@ -64,6 +66,10 @@ const UpdateTracking = () => {
     }
   };
 
+  const navigatetomap = (latitude: any, longitude: any) => {
+    LaunchNavigator.navigate([latitude, longitude]);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Order Details</Text>
@@ -73,7 +79,7 @@ const UpdateTracking = () => {
             <View style={styles.iconBorder}>
               <Package
                 size={48}
-                color={params.orderStatus === 'Pending' ? '#808080' : '#00AC7C'}
+                color={params.orderStatus === 'Pending' ? '#808080' : '#6EFACC'}
                 weight={params.orderStatus === 'Pending' ? 'thin' : 'fill'}
               />
             </View>
@@ -87,7 +93,7 @@ const UpdateTracking = () => {
                   params.orderStatus === 'Pending' ||
                   params.orderStatus === 'Picked Up'
                     ? '#808080'
-                    : '#00AC7C'
+                    : '#6EFACC'
                 }
                 weight={
                   params.orderStatus === 'Pending' ||
@@ -108,7 +114,7 @@ const UpdateTracking = () => {
                   params.orderStatus === 'Picked Up' ||
                   params.orderStatus === 'In Transit'
                     ? '#808080'
-                    : '#00AC7C'
+                    : '#6EFACC'
                 }
                 weight={
                   params.orderStatus === 'Pending' ||
@@ -121,6 +127,18 @@ const UpdateTracking = () => {
             </View>
             <Text style={styles.statusText}>Delivered</Text>
           </View>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleUpdateOrderStatus}>
+            <Text style={styles.buttonText}>
+              {params.orderStatus === 'Pending' && 'Update to Picked Up'}
+              {params.orderStatus === 'Picked Up' && 'Update to In Transit'}
+              {params.orderStatus === 'In Transit' && 'Update to Delivered'}
+              {params.orderStatus === 'Delivered' && 'Update to Finished'}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.subtitle}>Update Tracking</Text>
@@ -156,25 +174,29 @@ const UpdateTracking = () => {
           <Text style={styles.detailText}>
             <Text style={styles.boldText}>Pick Up:</Text> {params.pick_up}
           </Text>
-          <Text style={styles.detailText}>
-            <Text style={styles.boldText}>Drop Off:</Text>{' '}
-            {params.drop_off.join(', ')}
-          </Text>
+          {params.drop_off.map((location, index) => {
+            const parts = location.split(',');
+            const address = parts.slice(0, -2).join(',');
+            const latitude = parts.slice(-2, -1).join(',');
+            const longitude = parts.slice(-1).join(',');
+            return (
+              <View key={index}>
+                <Text style={styles.detailText}>
+                  <Text style={styles.boldText}>Drop Off {index + 1}:</Text>{' '}
+                  {address}
+                </Text>
+                <Button
+                  mode="contained"
+                  onPress={() => navigatetomap(latitude, longitude)}
+                  style={styles.mapButton}>
+                  Navigate to Drop Off {index + 1}
+                </Button>
+              </View>
+            );
+          })}
           <Text style={styles.detailText}>
             <Text style={styles.boldText}>Remark:</Text> {params.remark}
           </Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleUpdateOrderStatus}>
-            <Text style={styles.buttonText}>
-              {params.orderStatus === 'Pending' && 'Update to Picked Up'}
-              {params.orderStatus === 'Picked Up' && 'Update to In Transit'}
-              {params.orderStatus === 'In Transit' && 'Update to Delivered'}
-              {params.orderStatus === 'Delivered' && 'Update to Finished'}
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -187,12 +209,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#EAEEFF',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#405189',
     marginBottom: 16,
+    textAlign: 'center',
   },
   detailsContainer: {
     backgroundColor: '#fff',
@@ -208,11 +232,13 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#405189',
     marginBottom: 8,
   },
   detailText: {
     fontSize: 16,
     marginBottom: 4,
+    color: '#405189',
   },
   boldText: {
     fontWeight: 'bold',
@@ -228,18 +254,20 @@ const styles = StyleSheet.create({
   iconBorder: {
     padding: 8,
     borderRadius: 50,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#7582BF',
     marginBottom: 4,
   },
   statusText: {
     fontSize: 14,
     textAlign: 'center',
+    color: '#405189',
   },
   buttonContainer: {
     alignItems: 'center',
+    marginBottom: 16,
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#D2A517',
     padding: 12,
     borderRadius: 8,
   },
@@ -247,5 +275,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  mapButton: {
+    backgroundColor: '#405189',
+    marginTop: 8,
   },
 });

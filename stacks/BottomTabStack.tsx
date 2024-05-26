@@ -40,7 +40,7 @@ const BottomTabStack = () => {
           // tabBarActiveTintColor: '#FFA897',
           // tabBarInactiveTintColor: '#BABCCA',
           tabBarStyle: {
-            backgroundColor: '#2C2F4A',
+            backgroundColor: '#405189',
             height: 50,
           },
         }}>
@@ -50,7 +50,7 @@ const BottomTabStack = () => {
           options={{
             tabBarIcon: ({focused, color, size}) => (
               <House
-                color={focused ? '#FFA897' : '#BABCCA'}
+                color={focused ? '#D2A517' : '#BABCCA'}
                 size={27}
                 weight="fill"
               />
@@ -63,7 +63,7 @@ const BottomTabStack = () => {
           options={{
             tabBarIcon: ({focused, color, size}) => (
               <User
-                color={focused ? '#FFA897' : '#BABCCA'}
+                color={focused ? '#D2A517' : '#BABCCA'}
                 size={27}
                 weight="fill"
               />

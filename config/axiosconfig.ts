@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import Config from 'react-native-config';
 import {getToken} from '../services/auth';
-axios.defaults.baseURL = "http://172.20.10.12:4000";
+axios.defaults.baseURL = Config.REACT_APP_API_URL;
 const onRequest = async (config: any) => {
   let token = '';
 
